@@ -1,3 +1,3 @@
 # Study
-all the tech i learned
+all the tech i've learned
 
