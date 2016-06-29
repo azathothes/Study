@@ -1,0 +1,15 @@
+1.for-of 循环 
+for (var value of myArray) {
+ console.log(value);
+}
+
+for-of 循环不仅支持数组，还支持大多数类数组对象，例如 DOM NodeList 对象。
+for-of 循环也支持字符串遍历.
+它同样支持 Map 和 Set 对象遍历。
+
+Map 对象稍有不同：内含的数据由键值对组成，所以你需要使用解构（destructuring）
+来将键值对拆解为两个独立的变量：
+for (var [key, value] of phoneBookMap) {
+ console.log(key + "'s phone number is: " + value);
+}
+
