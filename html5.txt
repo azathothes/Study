@@ -1,0 +1,55 @@
+> 1.概述
+
+1. HTML5 是继 HTML4.01 和 XHTML1.0 之后的超文本标记语言的最新版本
+2. 三项技术分别为：HTML5 核心规范（标签元素）、CSS（层叠样式表第三代）、和 JavaScript。
+3. 制定 HTML5 规范的一群人并不想挑出以往 HTML 的各种毛病为其改正，而是尽可能的补全 Web 开发者急需的各种功能。这些功能包括更强大的 CSS3、表单验证、音频视频、本地存储、地理定位、绘画（Canvas）、Web 通信等等。
+
+---
+
+> 2.基本格式
+文档类型声明 <!doctype html>
+
+文档元数据开头 <head>：包括 <link> <meta> <script> <style> <title>
+
+设置文档语言(中文) <head lang="zh-cn">
+文档标题 <title>
+声明字符编码 <meta charset="utf-8">
+文档内容主体 <body>
+
+> 3.文本元素
+文本加粗 <b>
+强调 <strong>
+强制换行 <br>
+安全换行 <wbr>
+外文词汇、科学术语 <i>
+强调 <em>
+删除线 <s>
+强调删除线 <del>
+下划线 <ins>
+小号字体 <small>
+上标 <sub>
+下标 <sup>
+代码 <code>
+用户输入 <kdb>
+变量 <var>
+程序输出 <samp>
+术语 <dfn>
+引用 双引号<q>
+引用标题 <cite>
+语言元素 <ruby>
+突出显示 <mark>
+时间 <time>
+一般性文本 <span>
+
+
+
+
+
+
+
+
+
+
+
+
+
