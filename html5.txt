@@ -43,6 +43,24 @@
 
 > 4.超链接和路径
 超链接属于文本元素
+相对路径
+锚点：{ <a name/id="1"></a> : <a href="#1"></a>
+
+>5.分组元素
+<p>段落
+<div>通用分组
+<blockquote>大段引用分组
+<pre>展示格式化内容
+<hr>水平线分割
+<ul>无序列表
+<ol>有序列表{start:从第几个开始统计,reversed:是否倒序,type:{default:1}}
+<dl><dt><dd>说明列表 list title detail
+<figure>图片布局
+    <figcaption>
+        图片说明
+    </figcaption>
+    <img src="">
+</figure>
 
 
 
