@@ -62,15 +62,25 @@
     <img src="">
 </figure>
 
+> 6.表格元素
 
+基本：table tr td
+tr 行 ：th 标题
+td 单元格
+属性{横向合并:colspan,纵向合并:rowspan}
 
+表头 <thead>
+表尾 <tfoot>
 
+表格标题 <caption>
 
-
-
-
-
-
-
-
-
+> 7.文档元素
+划分不同内容
+header:表示首部 logo 标题 导航 etc、
+footer:页面尾部 版权，链接 etc、
+hgroup:组合标题
+section:主题
+nav:导航
+article:添加一个独立成篇的文档 >header>...
+aside:注释栏>nav>footer
+address:联系信息
