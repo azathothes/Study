@@ -84,3 +84,14 @@ nav:导航
 article:添加一个独立成篇的文档 >header>...
 aside:注释栏>nav>footer
 address:联系信息
+
+> 8.嵌入元素
+<img> 图像
+<iframe> 嵌入文档
+<embed> 嵌入flash
+<progress> 显示进度
+<meter> 显示范围条
+
+> 9.音频和视频
+video
+music
