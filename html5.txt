@@ -95,3 +95,49 @@ address:联系信息
 > 9.音频和视频
 video
 music
+
+> 10.表单元素
+form 定义表单:
+    定义一个表单，内部存放需要提交的控件。
+    action 提交地址
+    method 提交方式
+    enctype 提交数据格式 上传文件:multipart/form-data
+    name 表单名称
+    autocomplete 自动填充 on/off
+    novalidate 是否执行客户端数据有效性检查
+
+input 用户输入数据
+    autofocas 默认光标聚焦
+    disabled 是否禁用
+    autocomplete 是否自动填充
+    form 与其他表单挂钩
+
+        元素解析:
+            1.当type为text时：
+                maxlength 最大长度
+                readonly 只读？
+                disabled 禁用
+                size 宽度
+                list 建议值
+                placeholder 提示
+            2.当type为password时：
+                与text一致。
+            3.type为search时：
+                与text一致。
+            4.type为number时：
+                只能输入数字，min max step
+            5.type为radio时：
+                name一致为分组
+                checked
+            6.type为hidden时：
+                隐藏域
+            7.file ：
+                上传
+                accept：提交类型：image/gif:jpg:
+
+
+
+label 通过label进行样式设置、
+
+filedset 表单分组
+legend 表单说明 在fieldset内部使用
