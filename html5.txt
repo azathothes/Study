@@ -141,3 +141,49 @@ label 通过label进行样式设置、
 
 filedset 表单分组
 legend 表单说明 在fieldset内部使用
+
+
+
+
+
+
+
+CSS:
+    度量单位:
+    绝对长度单位 单位标识符
+说明     in        英寸
+         cm        厘米
+         mm        毫米
+         pt        磅
+         pc        pica
+
+    相对长度单位 单位标识符
+说明     em     与元素字号挂钩
+         ex 与元素字体的“x 高度”挂钩
+         rem 与根元素的字号挂钩
+         px 像素，与分辨率挂钩
+         % 相对另一值的百分比
+
+    em:double the height of font-size.
+
+    文本效果:
+    1.阴影 text-shadow.  1px 1px 1px red.
+    2.裁剪 1.white-space:nowarp 不换行，text-overflow:ellipsis;...特效
+        未纳入标准:
+        3.描边 webkit 支持 -webkit-text-stroke:1px red;
+        4.文本填充 webkit支持 -webkit-text-fill-color:red;
+
+    渐变效果:
+    1.线性渐变:background-color:linear-gradient(方位，[起始色(10% 占10%内容)，末位色])
+              方位:to top;to bottom;to left;to right;to top left; etc.
+                   deg(0~360)
+              tips：deg 角度
+
+    2.径向渐变:放射渐变
+              background-image:radial-gradient(@type (半径 px),@from,@to)
+              @type:正圆 circle;椭圆 eclipse
+
+    边框图片效果:
+    嵌入图片形式的边框 border-image-source:url(test.jpg); //引入
+                     border-image-width:边框宽度
+                     border-image-slice:切割
