@@ -187,3 +187,10 @@ CSS:
     嵌入图片形式的边框 border-image-source:url(test.jpg); //引入
                      border-image-width:边框宽度
                      border-image-slice:切割
+    变形: 旋转 缩放 平移
+          1.transform value1:translate(长度或百分比): 平移（x轴,y轴）
+                             x:轴 translateX y轴:tramslateY
+
+                      value2:scale(0.8,0.8) 水平，垂直方向缩小xx倍
+                             scaleX,scaleY
+                      value3:rotate((x)deg)旋转元素
