@@ -193,4 +193,19 @@ CSS:
 
                       value2:scale(0.8,0.8) 水平，垂直方向缩小xx倍
                              scaleX,scaleY
-                      value3:rotate((x)deg)旋转元素
+                      value3:rotate((x)deg) 旋转元素0-360度
+                      value4:skew((x)deg,(y)deg)倾斜元素0-360度
+    CSS3过度：平滑过渡功能-由简单的过渡属性出发:transition
+        transition-property:指定css属性
+            1.ex:transition-property:(none||all||background-color)
+            2.   transition-duration:1s;
+        transition-duration:过渡所需时间
+
+        transition-timing-function:ease 缓动;linear 匀速;
+
+        transition-delay：延时 (0s,1s,2s);
+
+        简写:
+            transition:color 1s ease 0s;←延时
+
+    动画效果：
