@@ -207,5 +207,5 @@ CSS:
 
         简写:
             transition:color 1s ease 0s;←延时
-
-    动画效果：
+    css传统布局
+        不受浮动干扰 :清理浮动 clear:float;
