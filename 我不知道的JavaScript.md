@@ -30,3 +30,58 @@ o instanceof Type：判断对象o是否属于Type类型
 
 ES5 特性
 		获取给丁{{对象}}的prototype对象 Object.getPrototypeOf(o)
+		为了判断一个对象是否包含自定义属性而不是原型链上的属性， 我们需要使用继承自 Object.prototype 的 hasOwnProperty 方法。
+		JavaScript 不会保护 hasOwnProperty 被非法占用，因此如果一个对象碰巧存在这个属性， 就需要使用外部的 hasOwnProperty 函数来获取正确的结果。
+		({}).hasOwnProperty.call(foo, 'bar');
+
+		和 in 操作符一样，for in 循环同样在查找对象属性时遍历原型链上的所有属性。
+
+	在五种不同的情况下 ，this 指向的各不相同。
+
+	 全局范围内
+
+	 this;
+	 当在全部范围内使用 this，它将会指向全局对象。
+
+	 foo();
+	 这里 this 也会指向全局对象。
+
+	 ES5
+
+
+
+
+	 注意: 在严格模式下（strict mode），不存在全局变量。 这种情况下 this 将会是 undefined。
+
+
+
+
+
+	 方法调用
+
+	 test.foo();
+	 这个例子中，this 指向 test 对象。
+
+	 调用构造函数
+
+	 new foo();
+	 如果函数倾向于和 new 关键词一块使用，则我们称这个函数是 构造函数。 在函数内部，this 指向新创建的对象。
+
+	 显式的设置 this
+
+	 function foo(a, b, c) {}
+
+	 var bar = {};
+	 foo.apply(bar, [1, 2, 3]); // 数组将会被扩展，如下所示
+	 foo.call(bar, 1, 2, 3); // 传递到foo的参数是：a = 1, b = 2, c = 3
+	 当使用 Function.prototype 上的 call 或者 apply 方法时，函数内的 this 将会被 显式设置为函数调用的第一个参数。
+
+=======================================================
+
+加法运算符会触发三种类型转换：
+
+转换为原始值
+
+转换为数字
+
+转换为字符串
