@@ -85,3 +85,20 @@ ES5 特性
 转换为数字
 
 转换为字符串
+
+
+面向对象编程，五大原则分别是：
+
+The Single Responsibility Principle（单一职责SRP）
+The Open/Closed Principle（开闭原则OCP）
+The Liskov Substitution Principle（里氏替换原则LSP）
+The Interface Segregation Principle（接口分离原则ISP）
+The Dependency Inversion Principle（依赖反转原则DIP）
+
+单一职责的描述如下：
+A class should have only one reason to change
+类发生更改的原因应该只有一个
+
+开闭原则的描述是：
+Software entities (classes, modules, functions, etc.) should be open for extension but closed for modification.
+软件实体（类，模块，方法等等）应当对扩展开放，对修改关闭，即软件实体应当在不修改的前提下扩展。

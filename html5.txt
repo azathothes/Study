@@ -209,3 +209,6 @@ CSS:
             transition:color 1s ease 0s;←延时
     css传统布局
         不受浮动干扰 :清理浮动 clear:float;
+
+    css弹性伸缩布局:
+        div{display:box} 将容器变为box伸缩盒子
