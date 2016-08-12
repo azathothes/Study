@@ -102,3 +102,69 @@ A class should have only one reason to change
 开闭原则的描述是：
 Software entities (classes, modules, functions, etc.) should be open for extension but closed for modification.
 软件实体（类，模块，方法等等）应当对扩展开放，对修改关闭，即软件实体应当在不修改的前提下扩展。
+
+
+执行上下文（Execution Contexts）
+可以定义执行上下文堆栈是一个数组：
+ECStack = [];
+每次进入function (即使function被递归调用或作为构造函数) 的时候或者内置的eval函数工作的时候，这个堆栈都会被压入。
+
+当进入funtion函数代码(所有类型的funtions)的时候，ECStack被压入新元素。需要注意的是，具体的函数代码不包括内部函数(inner functions)代码。
+
+变量对象（Variable Object）
+如果变量与执行上下文相关，那变量自己应该知道它的数据存储在哪里，并且知道如何访问。这种机制称为变量对象(variable object)。
+
+变量对象(缩写为VO)是一个与执行上下文相关的特殊对象，它存储着在上下文中声明的以下内容：
+    变量 (var, 变量声明);
+    函数声明 (FunctionDeclaration, 缩写为FD);
+    函数的形参
+
+全局上下文中的变量对象:
+	当访问全局对象的属性时通常会忽略掉前缀，这是因为全局对象是不能通过名称直接访问的。不过我们依然可以通过全局上下文的this来访问全局对象，同样也可以递归引用自身。
+	因此，回到全局上下文中的变量对象——在这里，变量对象就是全局对象自己：
+
+函数上下文中的变量对象
+在函数执行上下文中，VO是不能直接访问的，此时由活动对象(activation object,缩写为AO)扮演VO的角色。
+活动对象是在进入函数上下文时刻被创建的，它通过函数的arguments属性初始化。
+
+ex:
+function test(a, b) {
+  var c = 10;
+  function d() {}
+  var e = function _e() {};
+  (function x() {});
+}
+ 
+test(10); // call
+当进入带有参数10的test函数上下文时，AO表现为如下：
+
+AO(test) = {
+  a: 10,
+  b: undefined,
+  c: undefined,
+  d: <reference to FunctionDeclaration "d">
+  e: undefined
+};
+注意，AO里并不包含函数“x”。这是因为“x” 是一个函数表达式(FunctionExpression, 缩写为 FE) 而不是函数声明，函数表达式不会影响VO。
+
+
+变量声明在顺序上跟在函数声明和形式参数声明之后，进入上下文阶段，变量声明不会干扰VO中已经存在的同名函数声明或形式参数声明.
+
+	关于变量:任何时候，变量只能通过使用var关键字才能声明。
+
+this:
+	定义	
+	this是执行上下文中的一个属性：
+
+activeExecutionContext = {
+  VO: {...}, //virable object
+  this: thisValue
+};
+
+this是进入上下文时确定，在一个函数代码中，这个值在每一次完全不同。
+##调用函数的方式影响了调用的上下文中的this值，没有别的什么
+
+为了充分理解this值的确定，需要详细分析其内部类型之一——引用类型（Reference type）。
+
+在一个函数上下文中，this由调用者提供，由调用函数的方式来决定。如果调用括号()的左边是引用类型的值，this将设为引用类型值的base对象（base object），在其他情况下（与引用类型不同的任何其它属性），这个值为null。不过，实际不存在this的值为null的情况，因为当this的值为null的时候，其值会被隐式转换为全局对象。
+
