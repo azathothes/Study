@@ -2,7 +2,7 @@ var mysql = require('mysql');
 
 function myOrm(connection){
 	connection = connection || {};
-	this._host = connection.host || 'localhost';
+	this._host = connection.host || '127.0.0.1';
     this._port = connection.port || 3306;
     this._user = connection.user || 'wanlf';
     this._password = connection.password || 'wlf112111';
@@ -16,22 +16,30 @@ function myOrm(connection){
   		 password : this._password,
   		 database : this._database
 		});
-}
+    console.log('initialize successful.database connected...');
 
-myOrm.prototype.find = function(opt){
+
+}
+//use _query class to proxy every query function so as to make every query operation execute individualy.
+function _query(table,pool){
+	this._table = table;
+	this.pool = pool;
+}
+_query.prototype.find = function(opt){
+	console.log('find here')
 	if(!this._table)
 	{
 		throw new Error('can not query data without a table set up.invoke table function first!');
 	}
-	this._sql = `select * from ${this._table} where 1=1`;
+	this._sql = `select * from ${this._table} where 1=1 `;
 	this._opt = opt;
 	return this;
 }
 myOrm.prototype.table = function(table){
-	this._table = table;
-	return this;
+	return new _query(table,this.pool)
 }
-myOrm.prototype.skip = function(skip_num){
+_query.prototype.skip = function(skip_num){
+	console.log('skip here')
 	if(!this._sql)
 	{
 		throw new Error('can not skip data from empty result,find it first!');
@@ -40,13 +48,14 @@ myOrm.prototype.skip = function(skip_num){
 	return this;
 }
 //one of the last function to be called
-myOrm.prototype.limit = function(limit_num){
+_query.prototype.limit = function(limit_num){
+	console.log('limit here')
 	if(!this._sql)
 	{
 		throw new Error('can not skip data from empty result,find it first!');
 	}
 	return new Promise((res,rej)=>{
-		pool.getConnection((err,conn)=>{
+		this.pool.getConnection((err,conn)=>{
 			if(err)
 			{
 				rej(err);
@@ -58,16 +67,16 @@ myOrm.prototype.limit = function(limit_num){
 					var op = Object.keys(this._opt)
 					for(var key of op)
 					{
-						sql += `and ${key}=${query[key]}`
+						this._sql += `and ${key}=${this._opt[key]} `
 					}
 				}
 				if(this._skip_num)
 				{
-					sql += `limit ${this._skip_num} offset ${limit_num}`;
+					this._sql += `limit ${this._skip_num} offset ${limit_num} `;
 				}
-				
-
-				conn.query(sql,(err,result)=>{
+				console.log('about query for '+this._table)
+				console.log(this._sql)
+				conn.query(this._sql,(err,result)=>{
 					if(err)
 					{
 						rej(err);
@@ -76,19 +85,21 @@ myOrm.prototype.limit = function(limit_num){
 					{
 						res(result);
 					}
+					_clean.call(this);
+					conn.release();
 				});
 			}
 		});
 	});
 }
 //one of the last function to be called
-myOrm.prototype.exec = function(){
+_query.prototype.exec = function(){
 	if(!this._table || !this._sql)
 	{
 		throw new Error('can not query data before the table and the queryinfo is set up.');
 	}
 	return new Promise((res,rej)=>{
-		pool.getConnection((err,conn)=>{
+		this.pool.getConnection((err,conn)=>{
 			if(err)
 			{
 				rej(err);
@@ -100,7 +111,12 @@ myOrm.prototype.exec = function(){
 					var up = Object.keys(this._upt)
 					for(var key of up)
 					{
-						this._sql += ` ${key}=${up[key]}`
+						this._sql += ` ${key}='${this._upt[key]}' `;
+						this._sql +=',';
+					}
+					if(this._sql.endsWith(','))
+					{
+						this._sql = this._sql.substring(this._sql , this._sql.length - 1);
 					}
 					this._sql +='where 1=1'
 				}
@@ -109,7 +125,7 @@ myOrm.prototype.exec = function(){
 					var op = Object.keys(this._opt)
 					for(var key of op)
 					{
-						this._sql += `and ${key}=${op[key]}`
+						this._sql += ` and ${key}='${this._opt[key]}' `
 					}
 				}
 				if(this._skip_num)
@@ -120,27 +136,28 @@ myOrm.prototype.exec = function(){
 				{
 					this._sql +=`offset ${this._take_num}`;
 				}
-
-
+				console.log(this._sql);
 				conn.query(this._sql,(err,result)=>{
 					if(err)
 					{
 						rej(err);
-					}
+				    }
 					else
 					{
 						res(result);
 					}
+					_clean.call(this);
+					conn.release();
 				});
 			}
 		});
 	});
 }
-myOrm.prototype.take = function(take_num){
+_query.prototype.take = function(take_num){
 	this._take_num = take_num;
 	return this;
 }
-myOrm.prototype.delete = function(opt){
+_query.prototype.delete = function(opt){
 	if(!this._table)
 	{
 		throw new Error('can not delete data from a unknown table! call table function first!')
@@ -150,14 +167,14 @@ myOrm.prototype.delete = function(opt){
 	this._sql = `delete from ${this._table} where 1=1`;
 	this._skip_num = null;
 	this._take_num = null;
-	this._sql = `update ${this._table} set `
 	return this;
 }
-myOrm.prototype.update = function(opt,upt){
+_query.prototype.update = function(opt,upt){
 	if(!this._table)
 	{
 		throw new Error('can not update data from a unknown table! call table function first!')
 	}
+	this._sql = `update ${this._table} set `
 	this._method = 'update';
 	this._skip_num = null;
 	this._take_num = null;
@@ -165,19 +182,26 @@ myOrm.prototype.update = function(opt,upt){
 	this._upt = upt;
 	return this;
 }
-myOrm.prototype.findOne = function(opt){
+_query.prototype.findOne = function(opt){
 	if(!this._table)
 	{
 		throw new Error('can not find data from a unknown table! call table function first!')
 	}
 	this._opt = opt;
-	this._sql = `select * from ${this._table}`
+	this._sql = `select * from ${this._table} where 1=1 `
 	this._upt = null;
 	this._skip_num = 1;
 	this._take_num = null;
 	return this;
 }
 
-
+function _clean(){
+	this._table = null;
+	this._sql = null;
+    this._opt = null;
+	this._upt = null;
+	this._skip_num = null;
+	this._take_num = null;
+}
 
 module.exports.myOrm = myOrm;

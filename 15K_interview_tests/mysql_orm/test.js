@@ -2,7 +2,7 @@ var myOrm = require('./orm.js').myOrm;
 
 var query = new myOrm();
 
-query.table('passwd') 
+/*query.table('passwd') 
      .find({passwd:4})
 	 .skip(2)
      .limit(2)
@@ -22,6 +22,18 @@ query.table('passwd')
 
 query.table('passwd')
 	 .update({passwd:'wlf112111'},{passwd:'wlf1234ooo',id:'wanlf_test'})
+	 .exec()
+	 .then(res=>{console.log(res);console.log('======================================')})
+	 .catch(err=>{console.log(err)})*/
+
+/*query.table("passwd")
+	 .delete({id:1})
+	 .exec()
+	 .then(res=>{console.log(res);console.log('======================================')})
+	 .catch(err=>{console.log(err)})*/
+
+query.table('passwd')
+	 .findOne({id:4})
 	 .exec()
 	 .then(res=>{console.log(res);console.log('======================================')})
 	 .catch(err=>{console.log(err)})
