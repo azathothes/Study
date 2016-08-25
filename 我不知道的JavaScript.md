@@ -53,7 +53,11 @@ ES5 特性
 
 	 注意: 在严格模式下（strict mode），不存在全局变量。 这种情况下 this 将会是 undefined。
 
-
+`sad
+asdasd
+asd
+asd
+`
 
 
 
