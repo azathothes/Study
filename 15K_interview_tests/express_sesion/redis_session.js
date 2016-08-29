@@ -10,18 +10,21 @@ const mysession = function(session_info){
 	return function(req,res,next){
 		req.session = {};
 		var sessionProxy = new Proxy(req.session,{
-			set:function(target,prop){
-				var encript = crypto.createHash('md5');
-	            var enValue = encript.update(session_info.cookieKey + prop).digest('hex');
-				target[prop] = enValue;
-				console.log(prop)
-
+			set:function(target,prop,value){
+					var encript = crypto.createHash('md5');
+	        var enValue = encript.update(session_info.cookieKey + prop).digest('hex');
+					target[prop] = enValue;
+					redis.set(enValue:value);
+					res.cookies[sessionId] = enValue;
 			},
 			get:function(target,prop){
-
+					var envalue = target[prop];
+					if(!envalue)
+					{
+						  return null;
+					}
+					return redis.get(envalue);
 			}
 		});
 	}
 }
-//set:
-use
