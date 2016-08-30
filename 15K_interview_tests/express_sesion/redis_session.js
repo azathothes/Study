@@ -14,7 +14,7 @@ const mysession = function(session_info){
 					var encript = crypto.createHash('md5');
 	        var enValue = encript.update(session_info.cookieKey + prop).digest('hex');
 					target[prop] = enValue;
-					redis.set(enValue:value);
+					redis.set(enValue,value);
 					res.cookies[sessionId] = enValue;
 			},
 			get:function(target,prop){
