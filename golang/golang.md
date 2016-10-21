@@ -1,6 +1,6 @@
-array , slice , 与map的定义；
-
-array:
+### array , slice , 与map的定义
+* * * *
+#### array:
 可以利用 array 在列表中进行多个值的排序，或者使用更加灵活的：slice。字典或哈希类型同样可以使用，在 Go 中叫做 map。
 
 数组长度也是数组类型的一部分，所以[5]int和[10]int是属于不同类型的。
@@ -15,7 +15,7 @@ var arr [10]int
 var arrKeyValue = [5]string{3: "Chris", 4: "Ron"}
 
 
-slice:
+#### slice:
 切片（slice）是对数组一个连续片段的引用（该数组称之为相关数组，通常是匿名的），所以切片是一个引用类型。
 和数组不同的是，切片的长度可以在运行时修改。
 slice 与 array 接近，但是在新的元素加入的时候可以增加长度。slice 总是指向底层的
@@ -28,11 +28,6 @@ slice 与 array 接近，但是在新的元素加入的时候可以增加长度�
 一个切片在未初始化之前默认为 nil，长度为 0。
 切片的初始化格式是：var slice1 []type = arr1[start:end]。
 这表示 slice1 是由数组 arr1 从 start 索引到 end-1 索引之间的元素构成的子集
-
-
-
-
-
 
 或者通过：
 sl := make([]int , 10)
@@ -48,7 +43,7 @@ sl := make([]int , 10)
 数。源和目标可能重ඏ。元素复制的数量是 len(src) 和 len(dst) 中的最
 小值。
 
-map:
+#### map:
 在 Go 中有 map 类型。map 可以认为是一个用字符串做索引的数组（在其最简单的形式下）。
 map[<from type>]<to type>													  ↓索引
 留意，当只需要声明一个 map 的时候，使用 make 的形式：monthdays := make(map[string]int)
@@ -81,7 +76,7 @@ for key := range map1 {
 
 map 默认是无序的，不管是按照 key 还是按照 value 默认都不排序
 
-
+* * * *
 
 你可能想要定义一个结构体，但是也可以定义一个已经存在的类型的别名.如：type IZ int
 这里并不是真正意义上的别名，因为使用这种方法定义之后的类型可以拥有更多的特性，且在类型转换时必须显式转换。
