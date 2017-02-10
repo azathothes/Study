@@ -17,6 +17,12 @@ nodejs事件循环的核心数据结构为：```default_loop_struct```,此为时
 
 ![事件循环图](https://dn-cnode.qbox.me/Fkd1LWFQaE9_4Qr727JhfiG6kdKF)
 
+其中，io观察者分为两种：
+1. 网络io 
+2. 文件io
+
+网络io通过封装io观察者，添加到```loop->watcher_queue```队列中，文件异步io不同于网络io，**文件异步io把请求操作交给线程池处理，所有线程池的异步io操作统一由一个io观察者来管理**，等线程池处理完毕再通过该io观察者告知事件循环（epoll_wait）有异步io操作完成，最后在事件循环的线程中执行回调函数。
+
 
 
 
